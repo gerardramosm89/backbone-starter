@@ -1,10 +1,18 @@
-var Song = Backbone.Model.extend();
-var SongView = Backbone.View.extend({
-    render: function() {
-        this.$el.html(this.model.get('title'))
-        return this
+var person = {
+    name: "Mosh",
+    walk: function() {
+        this.trigger("walking", {
+            speed: 1,
+            startTime: "8:00"
+        });
     }
+};
+
+_.extend(person, Backbone.Events);
+
+person.on("walking", (e) => {
+    console.log('person is walking');
+    console.log('passed event to walking event is: ', e);
 });
-var song = new Song({ title: 'song 1' });
-var songView = new SongView({ el: "#container", model: song });
-songView.render()
+
+person.walk()
