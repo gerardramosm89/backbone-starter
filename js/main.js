@@ -1,12 +1,10 @@
-// Creating Models
-var Album = Backbone.Model.extend();
-var album = new Album();
-album.set('title', 'This is the title');
-
-// Validating
-var Song = Backbone.Model.extend({
-    validate: function(attrs) {
-        if(!attrs.title) return 'title is required';
+var Song = Backbone.Model.extend();
+var SongView = Backbone.View.extend({
+    render: function() {
+        this.$el.html(this.model.get('title'))
+        return this
     }
-})
-var song = new Song();
+});
+var song = new Song({ title: 'song 1' });
+var songView = new SongView({ el: "#container", model: song });
+songView.render()
