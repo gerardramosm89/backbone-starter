@@ -1,18 +1,4 @@
-var person = {
-    name: "Mosh",
-    walk: function() {
-        this.trigger("walking", {
-            speed: 1,
-            startTime: "8:00"
-        });
-    }
-};
 
-_.extend(person, Backbone.Events);
-
-person.on("walking", (e) => {
-    console.log('person is walking');
-    console.log('passed event to walking event is: ', e);
-});
-
-person.walk()
+// In the first few sections, we do all the coding here.
+// Later, you'll see how to organize your code into separate
+// files and modules.
