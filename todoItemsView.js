@@ -3,9 +3,13 @@ const TodoItemsView = Backbone.View.extend({
   id: 'todoItems',
   initialize: function(options) {
     this.model.on('add', this.onAddTodoItem, this);
+    this.model.on('remove', this.onRemoveTodoItem, this);
+  },
+  onRemoveTodoItem: function(todoItem) {
+    $(`#${todoItem.id}`).remove()
   },
   onAddTodoItem: function(todoItem) {
-    const view = new TodoItemView({ model: todoItem });
+    const view = new TodoItemView({ model: todoItem, id: todoItem.id, title: todoItem.toJSON().title });
     this.$el.append(view.render().$el);
   },
   events: {
@@ -18,12 +22,13 @@ const TodoItemsView = Backbone.View.extend({
     }
   },
   onClickAdd: function() {
-    console.log('attempting to add a todo');
     const $textBox = $('#newTodoItem')
     if ($textBox.val() == '') return;
-    const todoItem = new TodoItem({ description: $textBox.val() });
+    const todoItem = new TodoItem({ title: $textBox.val() });
+    this.model.create(todoItem);
+    // todoItem.save()
+    // this.model.add(todoItem);    
     $textBox.val("")
-    this.model.add(todoItem);
   },
   render: function() {
     const self = this;
